@@ -5,40 +5,75 @@
       <h1 class="title">
         bonafidebot
       </h1>
-      <h2 class="subtitle">
-        Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
-      </div>
+      <form class="botform">
+        <div class="botform__view">
+          <div class="botform__messagebox botform__messagebox--bot">
+            <div class="botform__message botform__message--bot">
+              Hej :) jak mogę Ci pomóc?
+            </div>
+            <br>
+          </div>
+          <div class="botform__messagebox botform__messagebox--user">
+            <div class="botform__message botform__message--user">
+              Zepsuł mi się rower :(
+            </div>
+            <br>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button">Button</button>
+          </div>
+        </div>
+      </form>
     </div>
   </section>
 </template>
 
 <script>
-import AppLogo from '~/components/AppLogo.vue'
-
 export default {
   components: {
-    AppLogo
   }
 }
 </script>
 
-<style>
+<style lang="scss">
+$blue: #007bff;
+$grey: #6c757d;
+.botform {
+  &__messagebox {
+    &--user {
+      text-align: right;
+    }
+  }
+  &__message {
+    display: inline-block;
+    color: white;
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+    margin-bottom: 10px;
+    &--bot {
+      background: $blue;
+    }
+    &--user {
+      background: $grey;
+    }
+  }
+}
+.botform__view {
+  padding: .375rem .75rem;
+  border: 1px solid #ced4da;
+  font-size: 1rem;
+  height: 300px;
+  overflow: auto;
+  margin-bottom: 20px;
+}
+
 .container {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 .title {
@@ -50,15 +85,4 @@ export default {
   letter-spacing: 1px;
 }
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
 </style>
