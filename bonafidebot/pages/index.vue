@@ -1,11 +1,10 @@
 <template>
   <section class="container">
     <div>
-      <app-logo/>
       <h1 class="title">
         bonafidebot
       </h1>
-      <form class="botform">
+      <form class="botform" @submit.prevent="sendMessage">
         <div class="botform__view">
           <div class="botform__messagebox botform__messagebox--bot">
             <div class="botform__message botform__message--bot">
@@ -13,17 +12,18 @@
             </div>
             <br>
           </div>
-          <div class="botform__messagebox botform__messagebox--user">
-            <div class="botform__message botform__message--user">
-              Zepsuł mi się rower :(
+          <!-- dynamic messages -->
+          <div class="botform__messagebox" v-for="(message, i) in messages" :key="i" :class="{'botform__messagebox--bot': message.who == 'bot', 'botform__messagebox--user':message.who != 'bot'}">
+            <div class="botform__message botform__message--bot" :class="{'botform__message--bot': message.who == 'bot', 'botform__message--user':message.who != 'bot'}">
+              {{ message.text }}
             </div>
             <br>
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+          <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" v-model="message">
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button">Button</button>
+            <button class="btn btn-outline-secondary" type="submit">Wyślij</button>
           </div>
         </div>
       </form>
@@ -32,8 +32,39 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
+  data() {
+    return {
+      message: ''
+    }
+  },
+  computed: {
+    messages() {
+      return this.$store.getters.getMessages
+    }
+  },
   components: {
+  },
+  methods: {
+    sendMessage() {
+      if (this.message) {
+        this.$store.dispatch('addMessage', {
+          who: 'user',
+          text: this.message
+        })
+        this.message = ''
+        axios.get('wp.pl')
+          .then()
+          .catch(e => console.log(e))
+        setTimeout(() => {
+          let form = document.querySelector('.botform__view');
+          form.scrollTop = form.scrollHeight + form.clientHeight;
+        }, 100)
+      } else {
+        alert('Wpisz wiadomość')
+      }
+    }
   }
 }
 </script>
