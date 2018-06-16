@@ -13,12 +13,14 @@
             <br>
           </div>
           <!-- dynamic messages -->
-          <div class="botform__messagebox" v-for="(message, i) in messages" :key="i" :class="{'botform__messagebox--bot': message.who == 'bot', 'botform__messagebox--user':message.who != 'bot'}">
-            <div class="botform__message botform__message--bot" :class="{'botform__message--bot': message.who == 'bot', 'botform__message--user':message.who != 'bot'}">
-              {{ message.text }}
+          <transition-group name="fade">
+            <div class="botform__messagebox" v-for="(message, i) in messages" :key="i" :class="{'botform__messagebox--bot': message.who == 'bot', 'botform__messagebox--user':message.who != 'bot'}">
+              <div class="botform__message botform__message--bot" :class="{'botform__message--bot': message.who == 'bot', 'botform__message--user':message.who != 'bot'}">
+                {{ message.text }}
+              </div>
+              <br>
             </div>
-            <br>
-          </div>
+          </transition-group>
         </div>
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" v-model="message">
@@ -54,8 +56,17 @@ export default {
           text: this.message
         })
         this.message = ''
-        axios.get('wp.pl')
-          .then()
+        axios.get('')
+          .then(() => {
+            this.$store.dispatch('addMessage', {
+              who: 'bot',
+              text: 'Bot answer'
+            })
+            setTimeout(() => {
+              let form = document.querySelector('.botform__view');
+              form.scrollTop = form.scrollHeight + form.clientHeight;
+            }, 100)
+          })
           .catch(e => console.log(e))
         setTimeout(() => {
           let form = document.querySelector('.botform__view');
@@ -111,9 +122,14 @@ $grey: #6c757d;
   font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
   display: block;
   font-weight: 300;
-  font-size: 100px;
+  font-size: 30px;
   color: #35495e;
   letter-spacing: 1px;
 }
-
+.fade-enter-active, .fade-leave-active {
+  transition: all .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 </style>
