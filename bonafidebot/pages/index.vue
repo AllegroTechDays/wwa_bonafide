@@ -91,6 +91,7 @@ $grey: #6c757d;
   }
   &__message {
     display: inline-block;
+    max-width: 300px;
     color: white;
     padding: .375rem .75rem;
     border-radius: .25rem;
@@ -122,7 +123,7 @@ $grey: #6c757d;
   font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
   display: block;
   font-weight: 300;
-  font-size: 30px;
+  font-size: 80px;
   color: #35495e;
   letter-spacing: 1px;
 }
