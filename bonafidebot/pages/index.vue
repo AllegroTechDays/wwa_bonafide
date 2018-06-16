@@ -2,13 +2,13 @@
   <section class="container">
     <div>
       <h1 class="title">
-        bonafidebot
+        Roweromir 
       </h1>
       <form class="botform" @submit.prevent="sendMessage">
         <div class="botform__view">
           <div class="botform__messagebox botform__messagebox--bot">
             <div class="botform__message botform__message--bot">
-              Hej :) jak mogę Ci pomóc?
+              Cześć tu Roweromir :) Jak mogę Ci pomóc?
             </div>
             <br>
           </div>
@@ -35,6 +35,7 @@
 
 <script>
 import axios from 'axios'
+axios.defaults.headers.post['Content-Type'] = 'application/application/json';
 export default {
   data() {
     return {
@@ -55,13 +56,13 @@ export default {
           who: 'user',
           text: this.message
         })
-        this.message = ''
-        axios.get('')
-          .then(() => {
+        axios.post('https://safe-caverns-94852.herokuapp.com/question', {q: this.message})
+          .then((res) => {
             this.$store.dispatch('addMessage', {
               who: 'bot',
-              text: 'Bot answer'
+              text: res.data.ans
             })
+            this.message = ''
             setTimeout(() => {
               let form = document.querySelector('.botform__view');
               form.scrollTop = form.scrollHeight + form.clientHeight;
@@ -91,7 +92,7 @@ $grey: #6c757d;
   }
   &__message {
     display: inline-block;
-    max-width: 300px;
+    max-width: 360px;
     color: white;
     padding: .375rem .75rem;
     border-radius: .25rem;
@@ -109,6 +110,7 @@ $grey: #6c757d;
   border: 1px solid #ced4da;
   font-size: 1rem;
   height: 300px;
+  width: 500px;
   overflow: auto;
   margin-bottom: 20px;
 }
