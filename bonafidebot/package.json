@@ -16,7 +16,7 @@
     "nuxt": "^1.0.0"
   },
   "devDependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.2",
     "babel-eslint": "^8.2.1",
     "conversational-form": "^0.9.81",
     "eslint": "^4.15.0",
