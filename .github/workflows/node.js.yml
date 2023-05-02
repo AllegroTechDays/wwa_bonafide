@@ -1,5 +1,5 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+# Ten plik skryptu spowoduje czystą instalację zależności węzłowych, zcache'uje je, przywróci, skompiluje kod źródłowy i uruchomi testy w różnych wersjach węzła.
+# Więcej informacji można znaleźć tutaj: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
 name: Node.js CI
 
@@ -18,7 +18,7 @@ jobs:
       matrix:
         dir: ['bonafidebot', 'bot-api-messages']
         node-version: [14.x, 16.x, 18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        # Zobacz harmonogram obsługiwanego wydania Node.js na stronie https://nodejs.org/en/about/releases/
 
     steps:
     - uses: actions/checkout@v3
@@ -30,10 +30,7 @@ jobs:
         cache: 'npm'
     - name: Install dependencies
       run: npm ci
-      working-directory: ${{ matrix.dir }}
     - name: Build
       run: npm run build --if-present
-      working-directory: ${{ matrix.dir }}
-    - name: Test
+    - name: Run tests
       run: npm test
-      working-directory: ${{ matrix.dir }}
