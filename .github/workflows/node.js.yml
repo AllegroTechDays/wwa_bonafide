@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        dir: ['bonafidebot', 'bot-api-messages']
+        dir: ['./bonafidebot', './bot-api-messages']
         node-version: [10.x, 12.x]
         # Zobacz harmonogram obsługiwanego wydania Node.js na stronie https://nodejs.org/en/about/releases/
 
